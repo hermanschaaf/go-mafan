@@ -1,0 +1,5 @@
+package mafan
+
+func init() {
+
+}
