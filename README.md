@@ -7,7 +7,7 @@ Right now it only has `Split`, which splits a string of Chinese text into a slic
 
     import (
     	"fmt"
-    	"mafan"
+    	"github.com/hermanschaaf/go-mafan"
     )
 
     func main() {
