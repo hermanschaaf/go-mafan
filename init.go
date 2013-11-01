@@ -1,7 +1,9 @@
 package mafan
 
 import (
-	"io/bufio"
+	"bufio"
+	"log"
+	"os"
 	"strings"
 )
 
@@ -12,7 +14,7 @@ func init() {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		parts := strings.Split(scanner.Text(), " ")
-		fmt.Println(parts[0])
+		TrieRoot.Insert(parts[0], parts[0])
 	}
 
 	if err := scanner.Err(); err != nil {

@@ -14,7 +14,7 @@ func newTrie() *Trie {
 	return root
 }
 
-func (t *Trie) insert(letters, value string) {
+func (t *Trie) Insert(letters, value string) {
 	/*
 		Insert a value into the trie
 	*/
@@ -43,7 +43,7 @@ func (t *Trie) insert(letters, value string) {
 	}
 }
 
-func (t *Trie) search(srch string) (found []string) {
+func (t *Trie) Search(srch string) (found []string) {
 	/*
 		Search for a string in the Trie.
 
@@ -67,7 +67,7 @@ func (t *Trie) search(srch string) (found []string) {
 	return found
 }
 
-func (t *Trie) convert(origin string) (result string) {
+func (t *Trie) Split(origin string) (result []string) {
 	/*
 		Convert a given string to the corresponding values
 		in the trie. This performed in a greedy fashion,
@@ -76,7 +76,6 @@ func (t *Trie) convert(origin string) (result string) {
 	*/
 	root := t
 	origin_rune := []rune(origin)
-	result = ""
 
 	for l := 0; l < len(origin_rune); l++ {
 		t = root
@@ -96,10 +95,10 @@ func (t *Trie) convert(origin string) (result string) {
 			}
 		}
 		if found_value != "" {
-			result += found_value
+			result = append(result, found_value)
 			l += depth
 		} else {
-			result += string(origin_rune[l : l+1])
+			result = append(result, string(origin_rune[l:l+1]))
 		}
 	}
 	return result
