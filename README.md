@@ -1,7 +1,7 @@
 Go Mafan
 ============
 
-Mafan is a Go package for handling everything in Chinese text processing that just makes your life `mafan` (troublesome). It can split strings into words, do parts-of-speech tagging, handling file encodings and more.
+Mafan is a Go package for handling everything in Chinese text processing that just makes your life `mafan` (troublesome). It will split strings into words, do parts-of-speech tagging, handle file encodings and more.
 
 Right now it only has `Split`, which splits a string of Chinese text into a slice of words, but it aims to achieve all of the above eventually. Use like so:
 
