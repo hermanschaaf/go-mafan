@@ -14,5 +14,8 @@ func TestSplit(t *testing.T) {
 }
 
 func BenchmarkSetup(b *testing.B) {
-
+	// benchmark how efficient the tree setup is
+	for i := 0; i < b.N; i++ {
+		SetupTrie()
+	}
 }

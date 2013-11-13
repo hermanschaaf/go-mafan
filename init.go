@@ -9,7 +9,7 @@ import (
 
 var TrieRoot *Trie = &Trie{map[string]*Trie{}, "", []string{}}
 
-func init() {
+func SetupTrie() {
 	file, _ := os.Open("data/dict.txt.big")
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
@@ -20,4 +20,8 @@ func init() {
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func init() {
+	SetupTrie()
 }
