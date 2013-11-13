@@ -14,8 +14,21 @@ func TestSplit(t *testing.T) {
 }
 
 func BenchmarkSetup(b *testing.B) {
-	// benchmark how efficient the tree setup is
+	// benchmark how efficient the trie setup is
 	for i := 0; i < b.N; i++ {
 		SetupTrie()
+	}
+}
+
+func BenchmarkSearch(b *testing.B) {
+	// benchmark how efficient searching the trie is
+	// for some short strings
+	s := []string{
+		"上海十大接吻聖地",
+		"而能夠操作這種內化影響",
+		"這是我見過最潮的髮型了",
+	}
+	for i := 0; i < b.N; i++ {
+		Split(s[i%len(s)])
 	}
 }
