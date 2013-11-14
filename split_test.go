@@ -20,7 +20,7 @@ func BenchmarkSetup(b *testing.B) {
 	}
 }
 
-func BenchmarkSearch(b *testing.B) {
+func BenchmarkSplit(b *testing.B) {
 	// benchmark how efficient searching the trie is
 	// for some short strings
 	s := []string{
