@@ -3,18 +3,18 @@ package mafan
 type Trie struct {
 	children map[string]*Trie
 	letter   string
-	values   []string
+	end      bool
 }
 
 func newTrie() *Trie {
 	/*
 	   Build a trie for efficient retrieval of entries
 	*/
-	var root *Trie = &Trie{map[string]*Trie{}, "", []string{}}
+	var root *Trie = &Trie{map[string]*Trie{}, "", false}
 	return root
 }
 
-func (t *Trie) Insert(letters, value string) {
+func (t *Trie) Insert(letters string) {
 	/*
 		Insert a value into the trie
 	*/
@@ -31,25 +31,26 @@ func (t *Trie) Insert(letters, value string) {
 			t = t.children[letter_str]
 		} else {
 			// not found, so add letter to children
-			t.children[letter_str] = &Trie{map[string]*Trie{}, "", []string{}}
+			t.children[letter_str] = &Trie{map[string]*Trie{}, "", false}
 			t = t.children[letter_str]
 		}
 
 		if l == len(letters_rune)-1 {
-			// last letter, save value and exit
-			t.values = append(t.values, value)
+			// last letter, save ending and exit
+			t.end = true
 			break
 		}
 	}
 }
 
-func (t *Trie) Search(srch string) (found []string) {
+func (t *Trie) Search(srch string) (found bool) {
 	/*
 		Search for a string in the Trie.
 
 		Returns the corresponding array of strings if found,
 		or an empty array otherwise.
 	*/
+	found = false
 	srch_rune := []rune(srch)
 
 	for l, letter := range srch_rune {
@@ -57,11 +58,11 @@ func (t *Trie) Search(srch string) (found []string) {
 		if t.children[letter_string] != nil {
 			t = t.children[letter_string]
 		} else {
-			found = []string{""}
+			found = false
 			return found
 		}
 		if l == len(srch_rune)-1 {
-			found = t.values
+			found = t.end
 		}
 	}
 	return found
@@ -80,15 +81,17 @@ func (t *Trie) Split(origin string) (result []string) {
 	for l := 0; l < len(origin_rune); l++ {
 		t = root
 		found_value := ""
+		path := ""
 		depth := 0
 		for i := 0; i+l < len(origin_rune); i++ {
 			letter := string(origin_rune[l+i])
+			path += letter
 			if t.children[letter] == nil {
 				// not found
 				break
 			} else {
-				if len(t.children[letter].values) > 0 {
-					found_value = t.children[letter].values[0]
+				if t.children[letter].end == true {
+					found_value = path
 					depth = i
 				}
 				t = t.children[letter]

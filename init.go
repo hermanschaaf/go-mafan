@@ -7,14 +7,14 @@ import (
 	"strings"
 )
 
-var TrieRoot *Trie = &Trie{map[string]*Trie{}, "", []string{}}
+var TrieRoot *Trie = &Trie{map[string]*Trie{}, "", false}
 
 func SetupTrie() {
 	file, _ := os.Open("data/dict.txt.big")
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		parts := strings.Split(scanner.Text(), " ")
-		TrieRoot.Insert(parts[0], parts[0])
+		TrieRoot.Insert(parts[0])
 	}
 
 	if err := scanner.Err(); err != nil {
