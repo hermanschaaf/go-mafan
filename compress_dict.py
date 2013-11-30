@@ -34,7 +34,7 @@ diff = 0
 
 for k, word in enumerate(words):
     freq = (1 / math.pow(k+1 + q, s)) / normalizer * total_words
-    w.write(u"{}\t{}\n".format(word[0], word[2]))
+    w.write(u"{}\n".format(word[0], word[2]))
     diff += abs(freq-word[1])
 
     real_freq = word[1] * 1.0 / total_words
