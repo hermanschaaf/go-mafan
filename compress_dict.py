@@ -13,7 +13,7 @@ print "compressing dict..."
 # zipf's law parameters:
 N = 0  # total number of words
 s = 1.0  # the value of the exponent characterizing the distribution.
-q = 0.1
+q = 2.0  # variable characterizing the distribution
 
 total_words = 0
 
@@ -34,7 +34,7 @@ diff = 0
 
 for k, word in enumerate(words):
     freq = (1 / math.pow(k+1 + q, s)) / normalizer * total_words
-    w.write(u"{}\t{}\t{}\t{}\t{}\n".format(word[0], word[2], word[1], freq, freq-word[1]))
+    w.write(u"{}\t{}\n".format(word[0], word[2]))
     diff += abs(freq-word[1])
 
     real_freq = word[1] * 1.0 / total_words
