@@ -68,7 +68,12 @@ func (t *Trie) Search(srch string) (found bool) {
 	return found
 }
 
-func (t *Trie) Split(origin string) (result []string) {
+type WordResult struct {
+	Word string
+	Rank int
+}
+
+func (t *Trie) Split(origin string) (result []WordResult) {
 	/*
 		Convert a given string to the corresponding values
 		in the trie. This performed in a greedy fashion,
@@ -81,6 +86,7 @@ func (t *Trie) Split(origin string) (result []string) {
 	for l := 0; l < len(origin_rune); l++ {
 		t = root
 		found_value := ""
+		found_rank := 0
 		path := ""
 		depth := 0
 		for i := 0; i+l < len(origin_rune); i++ {
@@ -93,15 +99,16 @@ func (t *Trie) Split(origin string) (result []string) {
 				if t.children[letter].rank >= 0 {
 					found_value = path
 					depth = i
+					found_rank = t.children[letter].rank
 				}
 				t = t.children[letter]
 			}
 		}
 		if found_value != "" {
-			result = append(result, found_value)
+			result = append(result, WordResult{found_value, found_rank})
 			l += depth
 		} else {
-			result = append(result, string(origin_rune[l:l+1]))
+			result = append(result, WordResult{string(origin_rune[l : l+1]), -1})
 		}
 	}
 	return result

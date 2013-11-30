@@ -1,8 +1,17 @@
 package mafan
 
-import ()
+import (
+	"fmt"
+)
 
-func Split(s string) (tokenized []string) {
-	tokenized = TrieRoot.Split(s)
-	return tokenized
+func Split(origin string) (result []string) {
+	words := TrieRoot.Split(origin)
+	for _, w := range words {
+		result = append(result, w.Word)
+	}
+	return result
+}
+
+func RankedSplit(s string) (tokenized []WordResult) {
+	return TrieRoot.Split(s)
 }

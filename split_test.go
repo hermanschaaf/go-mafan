@@ -13,6 +13,20 @@ func TestSplit(t *testing.T) {
 	}
 }
 
+func TestRankedSplit(t *testing.T) {
+	rankedSplit := RankedSplit("上海十大接吻聖地")
+	expected := []string{"上海", "十大", "接吻", "聖地"}
+	for i, r := range rankedSplit {
+		if r.Word != expected[i] {
+			t.Errorf("%s != %s", rankedSplit, expected)
+		}
+		if r.Rank <= 0 {
+			t.Errorf("No rank returned for %s", r.Word)
+		}
+	}
+
+}
+
 func BenchmarkSetup(b *testing.B) {
 	// benchmark how efficient the trie setup is
 	for i := 0; i < b.N; i++ {
