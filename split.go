@@ -1,9 +1,5 @@
 package mafan
 
-import (
-	"fmt"
-)
-
 func Split(origin string) (result []string) {
 	words := TrieRoot.Split(origin)
 	for _, w := range words {
