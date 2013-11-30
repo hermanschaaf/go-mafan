@@ -3,18 +3,18 @@ package mafan
 type Trie struct {
 	children map[string]*Trie
 	letter   string
-	end      bool
+	rank     int // rank <= 0 indicates not a full word
 }
 
 func newTrie() *Trie {
 	/*
 	   Build a trie for efficient retrieval of entries
 	*/
-	var root *Trie = &Trie{map[string]*Trie{}, "", false}
+	var root *Trie = &Trie{map[string]*Trie{}, "", 0}
 	return root
 }
 
-func (t *Trie) Insert(letters string) {
+func (t *Trie) Insert(letters string, rank int) {
 	/*
 		Insert a value into the trie
 	*/
@@ -31,13 +31,13 @@ func (t *Trie) Insert(letters string) {
 			t = t.children[letter_str]
 		} else {
 			// not found, so add letter to children
-			t.children[letter_str] = &Trie{map[string]*Trie{}, "", false}
+			t.children[letter_str] = &Trie{map[string]*Trie{}, "", 0}
 			t = t.children[letter_str]
 		}
 
 		if l == len(letters_rune)-1 {
 			// last letter, save ending and exit
-			t.end = true
+			t.rank = rank
 			break
 		}
 	}
@@ -62,7 +62,7 @@ func (t *Trie) Search(srch string) (found bool) {
 			return found
 		}
 		if l == len(srch_rune)-1 {
-			found = t.end
+			found = t.rank >= 1
 		}
 	}
 	return found
@@ -90,7 +90,7 @@ func (t *Trie) Split(origin string) (result []string) {
 				// not found
 				break
 			} else {
-				if t.children[letter].end == true {
+				if t.children[letter].rank >= 0 {
 					found_value = path
 					depth = i
 				}
