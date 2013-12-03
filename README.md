@@ -13,6 +13,8 @@ Right now it only has `Split`, which splits a string of Chinese text into a slic
     func main() {
     	fmt.Println(mafan.Split("上海十大接吻聖地")) // prints ["上海", "十大", "接吻", "聖地"]
     }
+    
+To use it, you will need to [download the dictionary file from here](https://github.com/fxsjy/jieba/blob/master/extra_dict/dict.txt.big) and add it to a new data/ directory inside the mafan package. I'll improve this situation soon (but trying to avoid git repo size bloat).
 
 ************
 
