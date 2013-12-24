@@ -89,9 +89,18 @@ func (t *Trie) Split(origin string) (result []WordResult) {
 		found_rank := 0
 		path := ""
 		depth := 0
+		skipped := false
 		for i := 0; i+l < len(origin_rune); i++ {
 			letter := string(origin_rune[l+i])
 			path += letter
+			if (i == 0 || skipped) && !IsHanzi(letter) {
+				depth = i
+				skipped = true
+				found_value = path
+				continue
+			} else if skipped {
+				break
+			}
 			if t.children[letter] == nil {
 				// not found
 				break

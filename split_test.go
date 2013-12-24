@@ -11,6 +11,12 @@ func TestSplit(t *testing.T) {
 	if split != expected {
 		t.Errorf("%s != %s", split, expected)
 	}
+
+	split = strings.Join(Split("上海十大接吻聖地and english."), " ")
+	expected = "上海 十大 接吻 聖地 and english."
+	if split != expected {
+		t.Errorf("%s != %s", split, expected)
+	}
 }
 
 func TestRankedSplit(t *testing.T) {
